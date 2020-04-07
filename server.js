@@ -27,11 +27,16 @@ app.get('/getRecitationHours/:course', (req, res) => {
   fetchFunctions.fetchDiscussionsAndRecitations(req.params.course).then(function(value) {
     (async() => {
       let results = await Promise.all(
-        value.map(val => fetchFunctions.fetchTimesOfRecits(val.split(" - ")[3] + " - " + val.split(" - ")[4]))
+        value.map(val => fetchFunctions.fetchTimesOfRecits(val.split(" - ")[2] + " - " + val.split(" - ")[3]))
       )
-      console.log(results)
       res.send(results)
     })();
+  })
+});
+
+app.get('/getRecitationSections/:course', (req, res) => {
+  fetchFunctions.fetchDiscussionsAndRecitations(req.params.course).then(function(value) {
+    res.send(value.map(val => val.split(" - ")[2] + " - " + val.split(" - ")[3]))
   })
 });
 
@@ -39,5 +44,5 @@ app.listen(port, () => {
   console.log(`Node server is listening on port ${port}`);
 });
 
-//fetchDiscussionsAndRecitations("IF 100")
-//fetchTimesOfRecits("CS 201R - A4")
+//console.log(fetchFunctions.fetchDiscussionsAndRecitations("IF 100"))
+//console.log(fetchFunctions.fetchTimesOfRecits("IF 100R - A10"))

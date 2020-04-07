@@ -78,7 +78,9 @@ async function fetchTimesOfRecits(sectionName)
     {
       indexOfBeginning = lines[x].indexOf(">");
       indexOfEnd = lines[x].indexOf("<", indexOfBeginning + 1);
-      toBeReturned = lines[x].substring(indexOfBeginning + 1, indexOfEnd);
+      indexOfDayBegin = lines[x + 1].indexOf(">");
+      indexOfDayEnd = lines[x + 1].indexOf("<", indexOfDayBegin + 1);
+      toBeReturned = lines[x].substring(indexOfBeginning + 1, indexOfEnd) + " - " + lines[x + 1].substring(indexOfDayBegin + 1, indexOfDayEnd)
     }
     else if(lines[x].includes("</table>"))
     {
