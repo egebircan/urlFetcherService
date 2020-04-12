@@ -102,7 +102,15 @@ async function fetchDiscussionsAndRecitations(coursename)
   {
     if(wholeClasses[i].includes(courseRecit) || wholeClasses[i].includes(courseDiscussion) || wholeClasses[i].includes(courseLab))
     {
-      toBeReturned.push(wholeClasses[i]);
+      if(wholeClasses[i].includes('–'))
+      {
+        var classWithoutUnknownDash = wholeClasses[i].replace('–', '-');
+        toBeReturned.push(classWithoutUnknownDash);
+      }
+      else
+      {
+        toBeReturned.push(wholeClasses[i]);
+      }
     }
   }
   return toBeReturned;
