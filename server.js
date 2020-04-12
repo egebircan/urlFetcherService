@@ -36,7 +36,7 @@ app.get('/getRecitationHours/:course', (req, res) => {
 
 app.get('/getRecitationSections/:course', (req, res) => {
   fetchFunctions.fetchDiscussionsAndRecitations(req.params.course).then(function(value) {
-    res.send(value.map(val => val.split(" - ")[2] + " - " + val.split(" - ")[3]))
+    res.send(value.map(val => val.split(" - ")[3] + " - " + val.split(" - ")[4]))
   })
 });
 
