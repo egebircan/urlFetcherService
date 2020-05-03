@@ -117,21 +117,31 @@ async function fetchDiscussionsAndRecitations(coursename)
 }
 
 
-function fetchEmailOfInstructor(instructorname)
+async function fetchEmailOfInstructor(instructorname)
 {
   var lines = fs.readFileSync('./classes.txt').toString().split("\n");
   var arrayLength = lines.length;
+  nameArrayForEmailCheck = instructorname.split(" ");
 
   for(var i = 0; i < arrayLength; i++)
   {
     if(lines[i].includes(instructorname))
     {
       var matchGroup = lines[i].match(/<a href\="(.*?)"/g); 
-      var instructorMailto = matchGroup[0].match(/(?<=\")(.*?)(?=\")/g);
-      var indexOfBegin = matchGroup[0].indexOf(":");
-      var instructorEmail = matchGroup[0].substring(indexOfBegin + 1, matchGroup[0].length - 1);
-      console.log(instructorEmail);
-      break;
+      var matchGroupMarker = 0;
+      for(var x = 0; x < matchGroup.length; x++)
+      {
+        for(var y = 0; y < nameArrayForEmailCheck.length; y++)
+        {
+          if(matchGroup[x].includes(nameArrayForEmailCheck[y].toLowerCase()))
+          {
+            var indexOfBegin = matchGroup[x].indexOf(":");
+            var instructorEmail = matchGroup[x].substring(indexOfBegin + 1, matchGroup[x].length - 1);
+            console.log(instructorEmail);
+            return instructorEmail;
+          }
+        }
+      }
     }
   }
 }
