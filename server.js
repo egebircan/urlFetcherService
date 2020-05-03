@@ -40,6 +40,12 @@ app.get('/getRecitationSections/:course', (req, res) => {
   })
 });
 
+app.get('/getEmailOfInstructorName/:instructorname', (req, res) => {
+  fetchFunctions.fetchEmailOfInstructor(req.params.instructorname).then(function(value) {
+    res.send(value)
+  })
+});
+
 app.listen(port, () => {
   console.log(`Node server is listening on port ${port}`);
 });
